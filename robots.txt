@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kitorz.github.io/freelancer-invoice-tools/sitemap.xml

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoice &amp; Late-Fee Calculators for Freelancers — Freelancer Finance Lookup</title>
+<meta name="description" content="Free calculators for freelancers: work out late fees on an overdue invoice from the due date and your annual rate, and build an invoice total with line items, discount and tax or VAT.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <p class="site-title"><a href="index.html">Freelancer Finance Lookup</a></p>
+    <p class="site-tagline">Small, practical tools for freelancers who want to get paid on time.</p>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="calculators.html" aria-current="page">Calculators</a>
+      <a href="chase-guide.html">Late-Payment Chase Guide</a>
+      <a href="quote-guide.html">Quote &amp; Estimate Guide</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Invoice &amp; late-fee calculators</h1>
+  <p class="lede">Both calculators run entirely in your browser — the numbers you type are never sent anywhere. Enter amounts in your own currency; the maths works the same in USD, EUR, GBP or anything else.</p>
+
+  <section class="calc" aria-labelledby="late-fee-heading">
+    <h2 id="late-fee-heading">Late-fee calculator</h2>
+    <p>How much is an overdue invoice worth once late fees are added? Enter the invoice amount, the due date, and the date you expect payment. The fee is calculated on a simple annual-rate basis: amount &times; annual rate &times; (chargeable days &divide; 365).</p>
+    <form id="late-fee-form">
+      <div class="field-row">
+        <div class="field">
+          <label for="lf-amount">Invoice amount</label>
+          <input type="number" id="lf-amount" min="0" step="0.01" placeholder="e.g. 1200" required>
+        </div>
+        <div class="field">
+          <label for="lf-rate">Annual late-fee rate (%)</label>
+          <input type="number" id="lf-rate" min="0" step="0.1" value="12" required>
+          <span class="hint">Use the rate in your contract or terms. Common rates are 8–18% per year.</span>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="lf-due">Due date</label>
+          <input type="date" id="lf-due" required>
+        </div>
+        <div class="field">
+          <label for="lf-paid">Payment date</label>
+          <input type="date" id="lf-paid" required>
+          <span class="hint">Defaults to today. Change it to model a future payment date.</span>
+        </div>
+        <div class="field">
+          <label for="lf-grace">Grace period (days)</label>
+          <input type="number" id="lf-grace" min="0" step="1" value="0">
+          <span class="hint">Days after the due date before fees start. Leave at 0 if none.</span>
+        </div>
+      </div>
+      <p><button type="submit">Calculate late fee</button></p>
+    </form>
+    <div class="result" id="late-fee-result" hidden aria-live="polite"></div>
+  </section>
+
+  <section class="calc" aria-labelledby="invoice-total-heading">
+    <h2 id="invoice-total-heading">Invoice total calculator</h2>
+    <p>Build an invoice from line items, then apply a discount and tax or VAT. Tax is charged on the amount after discount.</p>
+    <form id="invoice-form">
+      <table class="line-items" aria-label="Invoice line items">
+        <thead>
+          <tr>
+            <th scope="col">Description</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Unit price</th>
+            <th scope="col">Line total</th>
+            <th scope="col"><span class="hint">Remove</span></th>
+          </tr>
+        </thead>
+        <tbody id="line-items-body">
+          <tr>
+            <td><input type="text" value="Design work" aria-label="Line item description"></td>
+            <td><input type="number" class="qty" min="0" step="0.01" value="10" aria-label="Quantity"></td>
+            <td><input type="number" class="price" min="0" step="0.01" value="60" aria-label="Unit price"></td>
+            <td class="line-total">600.00</td>
+            <td><button type="button" class="small remove-row" aria-label="Remove this line">&times;</button></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Revisions" aria-label="Line item description"></td>
+            <td><input type="number" class="qty" min="0" step="0.01" value="2" aria-label="Quantity"></td>
+            <td><input type="number" class="price" min="0" step="0.01" value="45" aria-label="Unit price"></td>
+            <td class="line-total">90.00</td>
+            <td><button type="button" class="small remove-row" aria-label="Remove this line">&times;</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <p><button type="button" class="small" id="add-row">+ Add a line item</button></p>
+      <div class="field-row">
+        <div class="field">
+          <label for="inv-discount-type">Discount type</label>
+          <select id="inv-discount-type">
+            <option value="none">No discount</option>
+            <option value="percent">Percentage (%)</option>
+            <option value="fixed">Fixed amount</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="inv-discount-value">Discount value</label>
+          <input type="number" id="inv-discount-value" min="0" step="0.01" value="0">
+        </div>
+        <div class="field">
+          <label for="inv-tax">Tax / VAT (%)</label>
+          <input type="number" id="inv-tax" min="0" step="0.1" value="0">
+          <span class="hint">Charged on the total after discount. Leave at 0 if you do not charge tax.</span>
+        </div>
+      </div>
+      <p><button type="submit">Calculate invoice total</button></p>
+    </form>
+    <div class="result" id="invoice-result" hidden aria-live="polite"></div>
+  </section>
+
+  <section aria-labelledby="notes-heading">
+    <h2 id="notes-heading">Notes on the maths</h2>
+    <ul>
+      <li><strong>Late fees are simple, not compound.</strong> The calculator charges the annual rate on the original invoice amount only. If your contract compounds fees, or charges a fixed monthly fee instead, the numbers will differ — use the rate your contract actually states.</li>
+      <li><strong>Check your local rules.</strong> Some jurisdictions cap late-fee rates or require specific wording in your terms. A calculator cannot replace that check.</li>
+      <li><strong>Discounts come off before tax.</strong> That is the usual order, but it can vary by jurisdiction; if your tax authority requires otherwise, adjust the result accordingly.</li>
+    </ul>
+  </section>
+
+  <section class="cta" aria-labelledby="kit-heading">
+    <h2 id="kit-heading">Tired of doing this by hand for every invoice?</h2>
+    <p>The <strong>Freelancer Invoice &amp; Overdue Chase Kit</strong> tracks every invoice in one sheet — status turns Overdue automatically when the due date passes — and pairs it with a 5-email chase cadence and a weekly 10-minute routine.</p>
+    <p><a class="cta-button" href="https://kitkit2.gumroad.com/l/rjaklp">Try the free sample — $0</a>
+    <a class="cta-button secondary" href="https://kitkit2.gumroad.com/l/wztca">Get the full kit — $29</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Freelancer Finance Lookup — free tools for freelancers. The full chase kit is sold on <a href="https://kitkit2.gumroad.com/l/wztca">Gumroad</a>; the <a href="https://kitkit2.gumroad.com/l/rjaklp">free sample</a> is $0. This site is not accounting software and not tax advice.</p>
+</footer>
+
+<script>
+/* Pure calculation functions — no DOM access, so they can be tested headlessly. */
+function computeLateFee(amount, dueDate, paidDate, annualRatePercent, graceDays) {
+  var MS_PER_DAY = 24 * 60 * 60 * 1000;
+  var due = new Date(dueDate + "T00:00:00");
+  var paid = new Date(paidDate + "T00:00:00");
+  if (isNaN(due.getTime()) || isNaN(paid.getTime())) return { error: "Please enter valid dates." };
+  if (!(amount >= 0) || !(annualRatePercent >= 0) || !(graceDays >= 0)) {
+    return { error: "Amount, rate and grace days must be zero or more." };
+  }
+  var rawDays = Math.floor((paid.getTime() - due.getTime()) / MS_PER_DAY);
+  var daysOverdue = Math.max(0, rawDays);
+  var chargeableDays = Math.max(0, daysOverdue - graceDays);
+  var fee = amount * (annualRatePercent / 100) * (chargeableDays / 365);
+  return {
+    daysOverdue: daysOverdue,
+    chargeableDays: chargeableDays,
+    fee: Math.round(fee * 100) / 100,
+    total: Math.round((amount + fee) * 100) / 100
+  };
+}
+
+function computeInvoiceTotal(lines, discountType, discountValue, taxPercent) {
+  var subtotal = 0;
+  for (var i = 0; i < lines.length; i++) {
+    var qty = lines[i].qty, price = lines[i].price;
+    if (!(qty >= 0) || !(price >= 0)) return { error: "Quantities and prices must be zero or more." };
+    subtotal += qty * price;
+  }
+  var discount = 0;
+  if (discountType === "percent") {
+    if (!(discountValue >= 0) || discountValue > 100) return { error: "A percentage discount must be between 0 and 100." };
+    discount = subtotal * (discountValue / 100);
+  } else if (discountType === "fixed") {
+    if (!(discountValue >= 0)) return { error: "A fixed discount must be zero or more." };
+    discount = Math.min(discountValue, subtotal);
+  }
+  var taxable = subtotal - discount;
+  if (!(taxPercent >= 0)) return { error: "Tax rate must be zero or more." };
+  var tax = taxable * (taxPercent / 100);
+  var round2 = function (n) { return Math.round(n * 100) / 100; };
+  return {
+    subtotal: round2(subtotal),
+    discount: round2(discount),
+    tax: round2(tax),
+    total: round2(taxable + tax)
+  };
+}
+
+function money(n) {
+  return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+/* DOM wiring — only runs in a browser. */
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", function () {
+    var today = new Date().toISOString().slice(0, 10);
+    var paidInput = document.getElementById("lf-paid");
+    if (paidInput && !paidInput.value) paidInput.value = today;
+
+    /* --- Late-fee form --- */
+    var lfForm = document.getElementById("late-fee-form");
+    var lfResult = document.getElementById("late-fee-result");
+    lfForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var amount = parseFloat(document.getElementById("lf-amount").value);
+      var rate = parseFloat(document.getElementById("lf-rate").value);
+      var grace = parseFloat(document.getElementById("lf-grace").value) || 0;
+      var due = document.getElementById("lf-due").value;
+      var paid = document.getElementById("lf-paid").value;
+      if (isNaN(amount) || isNaN(rate) || !due || !paid) {
+        lfResult.hidden = false;
+        lfResult.innerHTML = '<p class="error">Please fill in the amount, rate and both dates.</p>';
+        return;
+      }
+      var r = computeLateFee(amount, due, paid, rate, grace);
+      lfResult.hidden = false;
+      if (r.error) {
+        lfResult.innerHTML = '<p class="error">' + r.error + '</p>';
+        return;
+      }
+      if (r.daysOverdue === 0) {
+        lfResult.innerHTML = "<p><strong>Not overdue.</strong> The payment date is on or before the due date, so no late fee applies.</p>";
+        return;
+      }
+      lfResult.innerHTML =
+        "<dl>" +
+        "<dt>Days overdue</dt><dd>" + r.daysOverdue + "</dd>" +
+        "<dt>Chargeable days (after grace period)</dt><dd>" + r.chargeableDays + "</dd>" +
+        "<dt>Late fee</dt><dd>" + money(r.fee) + "</dd>" +
+        "</dl>" +
+        '<p class="total-line">Total due: ' + money(r.total) + '</p>';
+    });
+
+    /* --- Invoice form --- */
+    var invForm = document.getElementById("invoice-form");
+    var invResult = document.getElementById("invoice-result");
+    var tbody = document.getElementById("line-items-body");
+
+    function refreshLineTotals() {
+      var rows = tbody.querySelectorAll("tr");
+      rows.forEach(function (row) {
+        var qty = parseFloat(row.querySelector(".qty").value) || 0;
+        var price = parseFloat(row.querySelector(".price").value) || 0;
+        row.querySelector(".line-total").textContent = money(qty * price);
+      });
+    }
+    tbody.addEventListener("input", refreshLineTotals);
+
+    document.getElementById("add-row").addEventListener("click", function () {
+      var row = document.createElement("tr");
+      row.innerHTML =
+        '<td><input type="text" value="" aria-label="Line item description"></td>' +
+        '<td><input type="number" class="qty" min="0" step="0.01" value="1" aria-label="Quantity"></td>' +
+        '<td><input type="number" class="price" min="0" step="0.01" value="0" aria-label="Unit price"></td>' +
+        '<td class="line-total">0.00</td>' +
+        '<td><button type="button" class="small remove-row" aria-label="Remove this line">&times;</button></td>';
+      tbody.appendChild(row);
+    });
+
+    tbody.addEventListener("click", function (e) {
+      if (e.target && e.target.classList.contains("remove-row")) {
+        var rows = tbody.querySelectorAll("tr");
+        if (rows.length > 1) e.target.closest("tr").remove();
+      }
+    });
+
+    invForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var lines = [];
+      tbody.querySelectorAll("tr").forEach(function (row) {
+        lines.push({
+          qty: parseFloat(row.querySelector(".qty").value),
+          price: parseFloat(row.querySelector(".price").value)
+        });
+      });
+      var discountType = document.getElementById("inv-discount-type").value;
+      var discountValue = parseFloat(document.getElementById("inv-discount-value").value) || 0;
+      var tax = parseFloat(document.getElementById("inv-tax").value);
+      if (lines.some(function (l) { return isNaN(l.qty) || isNaN(l.price); }) || isNaN(tax)) {
+        invResult.hidden = false;
+        invResult.innerHTML = '<p class="error">Please fill in every quantity, price and the tax rate.</p>';
+        return;
+      }
+      var r = computeInvoiceTotal(lines, discountType, discountValue, tax);
+      invResult.hidden = false;
+      if (r.error) {
+        invResult.innerHTML = '<p class="error">' + r.error + '</p>';
+        return;
+      }
+      invResult.innerHTML =
+        "<dl>" +
+        "<dt>Subtotal</dt><dd>" + money(r.subtotal) + "</dd>" +
+        "<dt>Discount</dt><dd>&minus;" + money(r.discount) + "</dd>" +
+        "<dt>Tax / VAT</dt><dd>" + money(r.tax) + "</dd>" +
+        "</dl>" +
+        '<p class="total-line">Invoice total: ' + money(r.total) + '</p>';
+    });
+  });
+}
+</script>
+</body>
+</html>

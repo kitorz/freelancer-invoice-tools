@@ -1,0 +1,235 @@
+/* Freelancer Finance Lookup — shared styles.
+   Palette: paper #F3EDE4, ink #1E1E1E, tan #A68A64. CSS only, no images. */
+
+:root {
+  --paper: #F3EDE4;
+  --card: #FFFDF8;
+  --ink: #1E1E1E;
+  --muted: #5C554A;
+  --tan: #A68A64;
+  --tan-dark: #8A7050;
+  --tan-light: #E9DFCB;
+  --border: #D8CDB8;
+  --green: #2E6B3A;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.3;
+}
+
+a { color: var(--tan-dark); }
+a:hover { color: var(--ink); }
+
+/* --- Header / nav --- */
+.site-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1rem 1.25rem;
+}
+.site-header .wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+.site-title a {
+  color: var(--paper);
+  text-decoration: none;
+}
+.site-title a:hover { color: var(--tan-light); }
+.site-tagline {
+  margin: 0.15rem 0 0.75rem;
+  color: #CFC6B4;
+  font-size: 0.95rem;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+.site-nav a {
+  color: var(--paper);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+.site-nav a:hover, .site-nav a[aria-current="page"] {
+  border-bottom-color: var(--tan);
+}
+
+/* --- Layout --- */
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+section { margin-bottom: 2.25rem; }
+h1 { font-size: 1.9rem; margin: 0.25rem 0 0.75rem; }
+h2 { font-size: 1.4rem; margin: 1.75rem 0 0.5rem; border-bottom: 2px solid var(--tan-light); padding-bottom: 0.3rem; }
+h3 { font-size: 1.15rem; margin: 1.25rem 0 0.4rem; }
+p { margin: 0.5rem 0; }
+ul, ol { padding-left: 1.4rem; }
+li { margin-bottom: 0.35rem; }
+.lede { font-size: 1.12rem; color: var(--muted); }
+
+/* --- Cards (home index) --- */
+.tool-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 600px) {
+  .tool-grid { grid-template-columns: 1fr 1fr; }
+}
+.tool-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+}
+.tool-card h3 { margin-top: 0; }
+.tool-card h3 a { color: var(--ink); text-decoration: none; }
+.tool-card h3 a:hover { color: var(--tan-dark); }
+.tool-card p { margin: 0.3rem 0 0.6rem; font-size: 0.97rem; }
+
+/* --- Product callout --- */
+.cta {
+  background: var(--tan-light);
+  border: 1px solid var(--tan);
+  border-left: 6px solid var(--tan);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+}
+.cta h2, .cta h3 { border: none; margin-top: 0; padding: 0; }
+.cta .price { font-weight: bold; }
+.cta-button {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  margin: 0.4rem 0.4rem 0.4rem 0;
+}
+.cta-button:hover { background: var(--tan-dark); color: var(--paper); }
+.cta-button.secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+.cta-button.secondary:hover { background: var(--ink); color: var(--paper); }
+
+/* --- Steps / cadence --- */
+.step-list { list-style: none; padding: 0; }
+.step-list li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.75rem;
+}
+.step-list .step-when {
+  display: block;
+  font-weight: bold;
+  color: var(--tan-dark);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* --- Forms / calculators --- */
+.calc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 2rem;
+}
+.calc h2 { border: none; margin-top: 0; padding: 0; }
+.field { margin-bottom: 0.9rem; }
+.field label { display: block; font-weight: bold; margin-bottom: 0.25rem; }
+.field .hint { font-weight: normal; color: var(--muted); font-size: 0.9rem; }
+.field input, .field select {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+}
+.field-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.field-row .field { flex: 1 1 140px; }
+button {
+  font-size: 1rem;
+  font-weight: bold;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+}
+button:hover { background: var(--tan-dark); }
+button.small {
+  background: transparent;
+  color: var(--tan-dark);
+  border: 1px solid var(--tan);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+}
+button.small:hover { background: var(--tan-light); color: var(--ink); }
+.result {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--tan);
+  border-left: 6px solid var(--tan);
+  border-radius: 6px;
+  background: var(--paper);
+}
+.result[hidden] { display: none; }
+.result .total-line { font-size: 1.25rem; font-weight: bold; }
+.result dl { margin: 0.4rem 0 0; }
+.result dt { font-weight: bold; display: inline; }
+.result dt::after { content: ": "; }
+.result dd { display: inline; margin: 0; }
+.result dd::after { content: ""; display: block; margin-bottom: 0.25rem; }
+.error { color: #9B2C2C; font-weight: bold; }
+
+table.line-items { width: 100%; border-collapse: collapse; margin-bottom: 0.75rem; }
+table.line-items th, table.line-items td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.4rem 0.3rem;
+  text-align: left;
+  vertical-align: middle;
+}
+table.line-items input { width: 100%; padding: 0.4rem; font-size: 0.95rem; border: 1px solid var(--border); border-radius: 4px; }
+table.line-items .line-total { font-weight: bold; white-space: nowrap; }
+@media (max-width: 560px) {
+  table.line-items th:nth-child(1), table.line-items td:nth-child(1) { width: 34%; }
+}
+
+/* --- Footer --- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.site-footer a { color: var(--muted); }
