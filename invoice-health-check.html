@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Invoice Health Check for Freelancers — Freelancer Finance Lookup</title>
+<meta name="description" content="A free 13-point invoice health check for freelancers: tick off the fields that get invoices rejected or parked — invoice number, dates, PO number, totals, payment terms — and see your score before you send.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <p class="site-title"><a href="index.html">Freelancer Finance Lookup</a></p>
+    <p class="site-tagline">Small, practical tools for freelancers who want to get paid on time.</p>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="calculators.html">Calculators</a>
+      <a href="chase-guide.html">Late-Payment Chase Guide</a>
+      <a href="quote-guide.html">Quote &amp; Estimate Guide</a>
+      <a href="payment-terms.html">Payment Terms</a>
+      <a href="invoice-anatomy.html">Invoice Anatomy</a>
+      <a href="pricing-freelance-work.html">Pricing Guide</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="excel-formulas.html">Excel Formulas</a>
+      <a href="invoice-tools-compared.html">Invoice Tools Compared</a>
+      <a href="daily-challenge.html">Daily Challenge</a>
+      <a href="invoice-health-check.html" aria-current="page">Health Check</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Free invoice health check</h1>
+  <p class="lede">Most invoice rejections come down to a handful of missing or wrong fields — and a missing field can leave an invoice sitting in accounts payable for three extra weeks. Run through the 13 checks below before you send an invoice. Everything runs entirely in your browser: nothing you tick or type is sent anywhere, and nothing is stored.</p>
+
+  <section class="calc" aria-labelledby="check-heading">
+    <h2 id="check-heading">Check your invoice</h2>
+    <p>Tick each item your invoice already has. The score updates as you go, and the note under each unticked item explains why it matters.</p>
+    <form id="health-check-form">
+      <ul class="check-list">
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Invoice number</strong> — a unique number, in sequence with your other invoices.</label>
+          <p class="why">Why it matters: without a number, accounts payable cannot file or trace your invoice, and duplicate numbers cause confusion.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Issue date</strong> — the date the invoice was created and sent.</label>
+          <p class="why">Why it matters: the due date and any late-fee clock are usually counted from the issue date, so a missing one leaves both unclear.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Due date</strong> — a clear payment deadline, not just &ldquo;on receipt&rdquo;.</label>
+          <p class="why">Why it matters: without a deadline there is nothing to chase against, and the client has no date to put in their payment run.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Your name and address</strong> — the name the client knows you by, plus your address.</label>
+          <p class="why">Why it matters: the client matches you against their vendor records; a name or address that does not match can park the invoice.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Client name and address</strong> — the exact legal entity name, as it appears in the client&rsquo;s records.</label>
+          <p class="why">Why it matters: an invoice billed to the wrong entity — a subsidiary instead of the parent, for example — is a common reason for rejection.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>PO number</strong> — included whenever the client requires one.</label>
+          <p class="why">Why it matters: a missing purchase order number is one of the most reported reasons invoices get sent back; if the client uses POs, this field is not optional.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Itemised lines with amounts</strong> — each item described, with quantity and rate shown.</label>
+          <p class="why">Why it matters: a single lump sum gives the approver nothing to check against the agreed work, so approval stalls.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Subtotal, tax and total add up</strong> — the maths reconciles, line by line.</label>
+          <p class="why">Why it matters: totals that do not add up are an instant rejection — accounts payable will not fix your arithmetic for you.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Payment terms</strong> — for example Net 14 or Net 30, and any deposit already paid.</label>
+          <p class="why">Why it matters: terms tell the client when to pay and on what basis; without them, payment timing is whatever their default happens to be.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>How to pay</strong> — bank details or a payment link, current and correct.</label>
+          <p class="why">Why it matters: an invoice that makes payment hard is the most common reason invoices go unpaid — missing or wrong payment details mean the client cannot pay even if they want to.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Late-fee note</strong> — what happens if payment is late, if your terms include one.</label>
+          <p class="why">Why it matters: a late fee you never stated is hard to enforce; stating it up front also makes the deadline feel real.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Contact for queries</strong> — a named person and an email address for questions about the invoice.</label>
+          <p class="why">Why it matters: if something is unclear, the client needs one obvious person to ask — otherwise the invoice sits while they work out who to contact.</p>
+        </li>
+        <li>
+          <label><input type="checkbox" value="1"> <strong>Sent to the right person or inbox</strong> — the approver or the accounts-payable inbox, not a generic address.</label>
+          <p class="why">Why it matters: an invoice sent to the wrong inbox is not late — it is lost. A field can be perfect and still never be seen.</p>
+        </li>
+      </ul>
+      <p><button type="button" id="reset-checks">Reset the checklist</button></p>
+    </form>
+    <div class="result" id="health-check-result" aria-live="polite">
+      <p class="total-line">0 of 13 checks passed</p>
+      <p>Tick the boxes above to see your score.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="limits-heading">
+    <h2 id="limits-heading">What this check cannot do</h2>
+    <p>This page checks that the fields are <strong>present</strong> on your invoice. It cannot check that they are <strong>right</strong>:</p>
+    <ul>
+      <li>It cannot verify a PO number, an entity name, or a billing period — those only exist in the client&rsquo;s own systems, and a wrong PO or a name that does not match the client&rsquo;s vendor records will still get the invoice rejected.</li>
+      <li>It cannot check tax rules, VAT IDs, or e-invoice formats. If you send structured e-invoices in the EU, free validators exist for that job (for example the Peppol validator).</li>
+      <li>It cannot fix the most common delay of all. Accounts-payable teams report that most late invoices are not bad documents — they are invoices nobody inside the company owns, and the approver is simply slow. A clean invoice helps; it does not guarantee a fast payment.</li>
+    </ul>
+    <p>If the invoice is already sent and the due date has passed, the fix is chasing, not re-checking: the <a href="chase-guide.html">late-payment chase guide</a> covers the 5-email cadence from three days before the due date to a final notice on day 30.</p>
+  </section>
+
+  <section class="cta" aria-labelledby="kit-heading">
+    <h2 id="kit-heading">Want the checks built into the invoice itself?</h2>
+    <p>The <strong>Freelancer Invoice &amp; Overdue Chase Kit</strong> includes a printable invoice template with all of these fields already on it, a tracker whose status turns Overdue automatically when the due date passes, and the 5 chase emails ready to copy and send.</p>
+    <p><a class="cta-button" href="https://kitkit2.gumroad.com/l/rjaklp">Try the free sample — $0</a>
+    <a class="cta-button secondary" href="https://kitkit2.gumroad.com/l/wztca">Get the full kit — $29</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Freelancer Finance Lookup — free tools for freelancers. The full chase kit is sold on <a href="https://kitkit2.gumroad.com/l/wztca">Gumroad</a>; the <a href="https://kitkit2.gumroad.com/l/rjaklp">free sample</a> is $0. This site is not accounting software and not tax advice.</p>
+</footer>
+
+<script>
+/* Pure score function — no DOM access, so it can be tested headlessly. */
+function computeHealthScore(passed, total) {
+  if (!(passed >= 0) || !(total > 0) || passed > total) {
+    return { error: "Passed must be between 0 and the total number of checks." };
+  }
+  var verdict;
+  if (passed === total) {
+    verdict = "Ready to send. Every field is in place — fix nothing, just send it to the right person.";
+  } else if (passed >= 10) {
+    verdict = "Nearly there. Fix the missing items above before you send — one of them is usually the reason an invoice gets sent back.";
+  } else if (passed >= 7) {
+    verdict = "Worth fixing before you send. Several of the missing items are the fields accounts payable check first.";
+  } else {
+    verdict = "Do not send it yet. Fix the missing items above first — an invoice this incomplete is likely to be parked or returned.";
+  }
+  return { passed: passed, total: total, verdict: verdict };
+}
+
+/* DOM wiring — only runs in a browser. */
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("health-check-form");
+    var boxes = form.querySelectorAll('input[type="checkbox"]');
+    var result = document.getElementById("health-check-result");
+    var total = boxes.length;
+
+    function updateScore() {
+      var passed = 0;
+      boxes.forEach(function (box) {
+        if (box.checked) passed++;
+        box.closest("li").classList.toggle("checked", box.checked);
+      });
+      var r = computeHealthScore(passed, total);
+      result.innerHTML =
+        '<p class="total-line">' + r.passed + " of " + r.total + " checks passed</p>" +
+        "<p>" + r.verdict + "</p>";
+    }
+
+    form.addEventListener("change", updateScore);
+    document.getElementById("reset-checks").addEventListener("click", function () {
+      boxes.forEach(function (box) { box.checked = false; });
+      updateScore();
+    });
+    updateScore();
+  });
+}
+</script>
+</body>
+</html>
