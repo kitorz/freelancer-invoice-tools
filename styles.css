@@ -224,6 +224,37 @@ table.line-items .line-total { font-weight: bold; white-space: nowrap; }
   table.line-items th:nth-child(1), table.line-items td:nth-child(1) { width: 34%; }
 }
 
+/* --- Comparison table --- */
+.table-scroll { overflow-x: auto; }
+table.compare { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.97rem; }
+table.compare th, table.compare td {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.compare th { background: var(--tan-light); }
+table.compare td:first-child { font-weight: bold; white-space: nowrap; }
+@media (max-width: 560px) {
+  table.compare { font-size: 0.9rem; }
+}
+
+/* --- Daily challenge --- */
+.challenge-list details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.75rem;
+}
+.challenge-list summary {
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--tan-dark);
+}
+.challenge-list summary:hover { color: var(--ink); }
+.challenge-list details p { margin: 0.5rem 0 0; }
+
 /* --- Footer --- */
 .site-footer {
   border-top: 1px solid var(--border);
